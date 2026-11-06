@@ -1,0 +1,439 @@
+<!-- не завершено未完成 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>建筑分类｜中俄建筑文化交流平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: #f4f6f8;
+            color:#333;
+            padding-bottom:85px;
+        }
+      
+        header{
+            background:linear-gradient(135deg,#2E4A62,#3c5f7c);
+            color:white;
+            padding:20px 18px;
+            position:relative;
+        }
+        .lang-switch{
+            position:absolute;
+            top:14px;
+            right:18px;
+            z-index:20;
+        }
+        .lang-btn{
+            padding:7px 13px;
+            border-radius:24px;
+            border:1px solid #fff;
+            background:transparent;
+            color:#fff;
+            cursor:pointer;
+            font-size:14px;
+            transition:0.25s;
+        }
+        .lang-btn:hover{
+            background:rgba(255,255,255,0.2);
+        }
+        .header-title{
+            font-size:24px;
+            text-align:center;
+            margin-bottom:14px;
+        }
+        .search-area{
+            display:flex;
+            max-width:650px;
+            margin:0 auto;
+        }
+        #search-input{
+            flex:1;
+            padding:13px 16px;
+            border-radius:8px 0 0 8px;
+            border:none;
+            font-size:15px;
+        }
+        #search-btn{
+            padding:13px 22px;
+            background:#1f384e;
+            color:white;
+            border:none;
+            border-radius:0 8px 8px 0;
+            cursor:pointer;
+            font-size:15px;
+            transition:0.25s;
+        }
+        #search-btn:hover{
+            background:#172a3b;
+        }
+       
+        .filter-wrap{
+            background:#fff;
+            padding:20px 18px;
+            margin:18px;
+            border-radius:18px;
+            box-shadow:0 4px 20px rgba(46, 74, 98, 0.08);
+        }
+        .filter-title{
+            font-size:17px;
+            margin-bottom:14px;
+            color:#2E4A62;
+        }
+        .tag-group{
+            display:flex;
+            flex-wrap:wrap;
+            gap:12px;
+        }
+        .filter-tag{
+            padding:9px 18px;
+            border:1px solid #d6e1ec;
+            border-radius:24px;
+            background:#f4f8fb;
+            cursor:pointer;
+            font-size:14px;
+            transition:0.22s;
+        }
+        .filter-tag.active{
+            background:#2E4A62;
+            color:white;
+            border-color:#2E4A62;
+        }
+        
+        .list-wrap{
+            margin:0 18px;
+            display:grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+            gap:22px;
+        }
+        .building-card{
+            background:#fff;
+            border-radius:18px;
+            overflow:hidden;
+            box-shadow:0 4px 16px rgba(0,0,0,0.08);
+            cursor:pointer;
+            transition:0.3s;
+        }
+        .building-card:hover{
+            transform: translateY(-7px);
+            box-shadow:0 12px 26px rgba(46, 74, 98, 0.15);
+        }
+        .card-pic{
+            height:170px;
+            background:#cad4dd;
+        }
+        .card-content{
+            padding:18px 16px;
+        }
+        .card-content h3{
+            font-size:19px;
+            margin-bottom:8px;
+        }
+        .card-content p{
+            font-size:14px;
+            color:#666;
+            line-height:1.6;
+        }
+        .card-type{
+            display:inline-block;
+            margin-top:12px;
+            padding:5px 12px;
+            background:#e8eff5;
+            color:#2E4A62;
+            border-radius:14px;
+            font-size:13px;
+        }
+        .empty-tip{
+            grid-column: 1 / -1;
+            text-align:center;
+            padding:60px 20px;
+            color:#888;
+            font-size:16px;
+        }
+        
+        #backTop{
+            position:fixed;
+            bottom:90px;
+            right:20px;
+            width:48px;
+            height:48px;
+            background:#2E4A62;
+            color:white;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            cursor:pointer;
+            display:none;
+            z-index:90;
+            box-shadow:0 4px 14px rgba(0,0,0,0.2);
+        }
+       
+        footer{
+            position:fixed;
+            bottom:0;
+            width:100%;
+            display:flex;
+            background:white;
+            border-top:1px solid #ddd;
+            box-shadow:0 -2px 10px rgba(0,0,0,0.06);
+        }
+        .footer-item{
+            flex:1;
+            text-align:center;
+            padding:15px 6px;
+            font-size:14px;
+            color:#666;
+            cursor:pointer;
+        }
+        .footer-item.active{
+            color:#2E4A62;
+            font-weight:bold;
+        }
+        a{
+            text-decoration:none;
+            color:inherit;
+        }
+       
+        @media(max-width:520px){
+            .header-title{
+                font-size:20px;
+            }
+            .list-wrap{
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="lang-switch">
+            <button class="lang-btn" id="langToggle">Русский</button>
+        </div>
+        <h1 class="header-title" data-i18n="pageTitle">建筑分类浏览</h1>
+        <div class="search-area">
+            <input id="search-input" data-i18n-placeholder="searchPlaceholder" placeholder="输入建筑名称搜索... / Поиск по названию..." />
+            <button id="search-btn" data-i18n="searchBtn">搜索</button>
+        </div>
+    </header>
+
+    <div class="filter-wrap">
+        <div class="filter-title" data-i18n="filterTip">筛选分类</div>
+        <div class="tag-group">
+            <div class="filter-tag active" data-type="all" data-i18n="tagAll">全部建筑</div>
+            <div class="filter-tag" data-type="china" data-i18n="tagChina">中华建筑</div>
+            <div class="filter-tag" data-type="russia" data-i18n="tagRussia">俄罗斯建筑</div>
+            <div class="filter-tag" data-type="co" data-i18n="tagCo">中俄共建工程</div>
+        </div>
+    </div>
+
+    <div class="list-wrap" id="buildingList">
+        <!-- 建筑卡片，type用来做筛选 -->
+        <div class="building-card" data-type="china" onclick="location.href='detail.html?id=1'">
+            <div class="card-pic">【故宫图片】</div>
+            <div class="card-content">
+                <h3 data-i18n="b1Name">故宫紫禁城</h3>
+                <p data-i18n="b1Desc">明清两代皇家宫殿，中国古代木构建筑最高成就。</p >
+                <span class="card-type" data-i18n="tagChina">中华建筑</span>
+            </div>
+        </div>
+        <div class="building-card" data-type="russia" onclick="location.href='detail.html?id=2'">
+            <div class="card-pic">【圣瓦西里大教堂图片】</div>
+            <div class="card-content">
+                <h3 data-i18n="b2Name">圣瓦西里大教堂</h3>
+                <p data-i18n="b2Desc">标志性洋葱穹顶教堂，俄罗斯经典古建筑。</p >
+                <span class="card-type" data-i18n="tagRussia">俄罗斯建筑</span>
+            </div>
+        </div>
+        <div class="building-card" data-type="china" onclick="location.href='detail.html?id=3'">
+            <div class="card-pic">【天坛图片】</div>
+            <div class="card-content">
+                <h3 data-i18n="b3Name">天坛</h3>
+                <p data-i18n="b3Desc">明清皇家祭天建筑群，建筑布局蕴含古人宇宙观。</p >
+                <span class="card-type" data-i18n="tagChina">中华建筑</span>
+            </div>
+        </div>
+        <div class="building-card" data-type="russia" onclick="location.href='detail.html?id=4'">
+            <div class="card-pic">【冬宫图片】</div>
+            <div class="card-content">
+                <h3 data-i18n="b4Name">冬宫</h3>
+                <p data-i18n="b4Desc">巴洛克风格宫殿，曾经沙俄皇宫，艺术藏品丰富。</p >
+                <span class="card-type" data-i18n="tagRussia">俄罗斯建筑</span>
+            </div>
+        </div>
+        <div class="building-card" data-type="co" onclick="location.href='detail.html?id=5'">
+            <div class="card-pic">【黑河大桥图片】</div>
+            <div class="card-content">
+                <h3 data-i18n="b5Name">黑河大桥</h3>
+                <p data-i18n="b5Desc">中俄跨境公路大桥，促进两国贸易往来。</p >
+                <span class="card-type" data-i18n="tagCo">中俄共建工程</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="backTop">↑</div>
+    <footer>
+        <div class="footer-item"><a href=" " data-i18n="footHome">首页浏览</a ></div>
+        <div class="footer-item active"><a href="category.html" data-i18n="footCat">建筑分类</a ></div>
+        <div class="footer-item"><a href="compare.html" data-i18n="footCompare">对比赏析</a ></div>
+        <div class="footer-item"><a href="quiz.html" data-i18n="footQuiz">知识答题</a ></div>
+    </footer>
+
+    <script>
+        const i18n = {
+            zh:{
+                pageTitle:"建筑分类浏览",
+                searchPlaceholder:"输入建筑名称搜索...",
+                searchBtn:"搜索",
+                filterTip:"筛选分类",
+                tagAll:"全部建筑",
+                tagChina:"中华建筑",
+                tagRussia:"俄罗斯建筑",
+                tagCo:"中俄共建工程",
+                footHome:"首页浏览",
+                footCat:"建筑分类",
+                footCompare:"对比赏析",
+                footQuiz:"知识答题",
+                b1Name:"故宫紫禁城",
+                b1Desc:"明清两代皇家宫殿，中国古代木构建筑最高成就。",
+                b2Name:"圣瓦西里大教堂",
+                b2Desc:"标志性洋葱穹顶教堂，俄罗斯经典古建筑。",
+                b3Name:"天坛",
+                b3Desc:"明清皇家祭天建筑群，建筑布局蕴含古人宇宙观。",
+                b4Name:"冬宫",
+                b4Desc:"巴洛克风格宫殿，曾经沙俄皇宫，艺术藏品丰富。",
+                b5Name:"黑河大桥",
+                b5Desc:"中俄跨境公路大桥，促进两国贸易往来。",
+                emptyText:"没有找到匹配的建筑"
+            },
+            ru:{
+                pageTitle:"Категории архитектуры",
+                searchPlaceholder:"Поиск по названию здания...",
+                searchBtn:"Поиск",
+                filterTip:"Фильтр",
+                tagAll:"Все здания",
+                tagChina:"Архитектура Китая",
+                tagRussia:"Архитектура России",
+                tagCo:"Совместные проекты",
+                footHome:"Главная",
+                footCat:"Категории",
+                footCompare:"Сравнение",
+                footQuiz:"Тесты",
+                b1Name:"Запретный город",
+                b1Desc:"Императорский дворец династий Мин и Цин, вершина китайской деревянной архитектуры.",
+                b2Name:"Собор Василия Блаженного",
+                b2Desc:"Знаменитая церковь с луковичными куполами, классика русской архитектуры.",
+                b3Name:"Храм Неба",
+                b3Desc:"Императорский комплекс для жертвоприношений, отражает древнее мировоззрение.",
+                b4Name:"Зимний дворец",
+                b4Desc:"Барочный дворец, бывшая резиденция царей, богатая коллекция искусств.",
+                b5Name:"Хэйхэский мост",
+                b5Desc:"Трансграничный мост Китая и России, способствует торговле.",
+                emptyText:"Подходящих зданий не найдено"
+            }
+        };
+        let currentLang = "zh";
+        let activeType = "all";
+        let searchKey = "";
+        const langToggleBtn = document.getElementById("langToggle");
+        const buildingListDom = document.getElementById("buildingList");
+        const allCards = document.querySelectorAll(".building-card");
+
+        // 读取url参数，接收首页传过来的search关键词
+        function getUrlParam(name){
+            let reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+            let r = window.location.search.substr(1).match(reg);
+            if(r!=null) return decodeURIComponent(r[2]);
+            return "";
+        }
+        searchKey = getUrlParam("search");
+        document.getElementById("search-input").value = searchKey;
+
+        function renderLang(){
+            const dict = i18n[currentLang];
+            document.querySelectorAll("[data-i18n]").forEach(el=>{
+                const key = el.getAttribute("data-i18n");
+                el.innerText = dict[key];
+            })
+            document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
+                const key = el.getAttribute("data-i18n-placeholder");
+                el.placeholder = dict[key];
+            })
+            langToggleBtn.innerText = currentLang==="zh"?"Русский":"中文";
+            filterCard();
+        }
+        langToggleBtn.onclick = ()=>{
+            currentLang = currentLang==="zh"?"ru":"zh";
+            renderLang();
+        }
+
+        
+        document.querySelectorAll(".filter-tag").forEach(tag=>{
+            tag.onclick = function(){
+                document.querySelectorAll(".filter-tag").forEach(t=>t.classList.remove("active"));
+                this.classList.add("active");
+                activeType = this.getAttribute("data-type");
+                filterCard();
+            }
+        })
+
+     
+        function filterCard(){
+            const dict = i18n[currentLang];
+            let hasShow = false;
+            allCards.forEach(card=>{
+                const type = card.getAttribute("data-type");
+                const nameText = card.querySelector("h3").innerText.toLowerCase();
+                const descText = card.querySelector("p").innerText.toLowerCase();
+                const keyword = searchKey.toLowerCase().trim();
+                let typeOk = (activeType === "all" || type === activeType);
+                let searchOk = (keyword === "" || nameText.includes(keyword) || descText.includes(keyword));
+                if(typeOk && searchOk){
+                    card.style.display = "block";
+                    hasShow = true;
+                }else{
+                    card.style.display = "none";
+                }
+            })
+            
+            let emptyDom = document.getElementById("emptyTip");
+            if(!hasShow){
+                if(!emptyDom){
+                    emptyDom = document.createElement("div");
+                    emptyDom.id = "emptyTip";
+                    emptyDom.className = "empty-tip";
+                    buildingListDom.appendChild(emptyDom);
+                }
+                emptyDom.innerText = dict.emptyText;
+                emptyDom.style.display = "block";
+            }else{
+                if(emptyDom) emptyDom.style.display = "none";
+            }
+        }
+
+        
+        document.getElementById("search-btn").onclick = function(){
+            searchKey = document.getElementById("search-input").value.trim();
+            filterCard();
+        }
+
+        
+        const backTopBtn = document.getElementById("backTop");
+        window.onscroll = function(){
+            backTopBtn.style.display = window.scrollY > 400 ? "flex" : "none";
+        }
+        backTopBtn.onclick = function(){
+            window.scrollTo({top:0,behavior:"smooth"});
+        }
+
+        renderLang();
+    </script>
+</body>
+</html>

@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中俄建筑文化交流平台｜首页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: #f4f6f8;
+            color:#333;
+            padding-bottom:85px;
+        }
+       
+        .section-wrap{
+            background:#ffffff;
+            margin:36px 18px;
+            border-radius:18px;
+            padding:28px 24px;
+            box-shadow:0 4px 20px rgba(46, 74, 98, 0.08);
+        }
+        .section-title-row{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:22px;
+        }
+        .section-title{
+            font-size:22px;
+            font-weight:bold;
+            border-left:5px solid #2E4A62;
+            padding-left:14px;
+            color:#2E4A62;
+        }
+        .more-link{
+            color:#2E4A62;
+            font-size:15px;
+            cursor:pointer;
+        }
+        .more-link:hover{
+            text-decoration:underline;
+        }
+
+               .lang-switch{
+            position:absolute;
+            top:16px;
+            right:18px;
+            z-index:20;
+        }
+        .lang-btn{
+            padding:8px 14px;
+            border-radius:24px;
+            border:1px solid #fff;
+            background:transparent;
+            color:#fff;
+            cursor:pointer;
+            font-size:14px;
+            transition:0.25s;
+        }
+        .lang-btn:hover{
+            background:rgba(255,255,255,0.2);
+        }
+
+              .slider-wrap{
+            width:calc(100% - 36px);
+            margin:18px auto 0;
+            height:280px;
+            border-radius:18px;
+            overflow:hidden;
+            position:relative;
+            box-shadow:0 6px 22px rgba(0,0,0,0.12);
+        }
+        .slider-container{
+            display:flex;
+            width:300%;
+            transition: all 0.6s ease;
+        }
+        .slide-item{
+            width:100%;
+            height:280px;
+            position:relative;
+        }
+        .slide-img{
+            width:100%;
+            height:100%;
+            background:#cad4dd;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#666;
+            font-size:18px;
+        }
+        .slide-text{
+            position:absolute;
+            bottom:0;
+            width:100%;
+            background:linear-gradient(transparent,rgba(0,0,0,0.65));
+            color:white;
+            padding:22px 26px;
+        }
+        .slide-text h3{
+            font-size:22px;
+            margin-bottom:8px;
+        }
+        .slide-text p{
+            font-size:15px;
+            opacity:0.92;
+        }
+               .arrow{
+            position:absolute;
+            top:50%;
+            transform:translateY(-50%);
+            width:44px;
+            height:44px;
+            background:rgba(255,255,255,0.72);
+            border-radius:50%;
+            text-align:center;
+            line-height:44px;
+            font-size:24px;
+            cursor:pointer;
+            z-index:10;
+            user-select:none;
+            transition:0.2s;
+        }
+        .arrow:hover{
+            background:#fff;
+        }
+        .arrow-left{
+            left:14px;
+        }
+        .arrow-right{
+            right:14px;
+        }
+       
+        .dot-wrap{
+            position:absolute;
+            bottom:14px;
+            width:100%;
+            text-align:center;
+            z-index:10;
+        }
+        .dot{
+            display:inline-block;
+            width:12px;
+            height:12px;
+            border-radius:50%;
+            background:#ffffff65;
+            margin:0 6px;
+            cursor:pointer;
+        }
+        .dot.active{
+            background:white;
+        }
+        
+        header{
+            background:linear-gradient(135deg,#2E4A62,#3c5f7c);
+            color:white;
+            padding:28px 18px;
+            text-align:center;
+            position:relative;
+        }
+        header h1{
+            font-size:28px;
+            margin-bottom:12px;
+        }
+        .search-area{
+            display:flex;
+            max-width:650px;
+            margin:0 auto;
+        }
+        #search-input{
+            flex:1;
+            padding:14px 18px;
+            border-radius:8px 0 0 8px;
+            border:none;
+            font-size:16px;
+        }
+        #search-btn{
+            padding:14px 26px;
+            background:#1f384e;
+            color:white;
+            border:none;
+            border-radius:0 8px 8px 0;
+            cursor:pointer;
+            font-size:16px;
+            transition:0.25s;
+        }
+        #search-btn:hover{
+            background:#172a3b;
+        }
+
+     
+        .intro-desc{
+            line-height:1.8;
+            color:#555;
+            font-size:15px;
+        }
+        .intro-tag-group{
+            display:flex;
+            flex-wrap:wrap;
+            gap:12px;
+            margin-top:18px;
+        }
+        .intro-tag{
+            background:#e8eff5;
+            color:#2E4A62;
+            padding:7px 16px;
+            border-radius:22px;
+            font-size:14px;
+        }
+
+        
+        .home-section-title{
+            font-size:24px;
+            font-weight:bold;
+            margin:0 18px 8px;
+            border-left:5px solid #2E4A62;
+            padding-left:14px;
+            color:#2E4A62;
+        }
+        .category-card-wrap{
+            display:grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+            gap:24px;
+            padding:0 18px 10px;
+        }
+        .home-category-card{
+            height:220px;
+            border-radius:18px;
+            overflow:hidden;
+            position:relative;
+            cursor:pointer;
+            box-shadow:0 6px 18px rgba(0,0,0,0.11);
+            transition: all 0.32s ease;
+        }
+        .home-category-card:hover{
+            transform: translateY(-8px);
+            box-shadow:0 14px 30px rgba(46, 74, 98, 0.18);
+        }
+        .card-bg{
+            width:100%;
+            height:100%;
+            background:#b8c8d6;
+            transition: transform 0.4s ease;
+        }
+        .home-category-card:hover .card-bg{
+            transform: scale(1.07);
+        }
+        .card-overlay{
+            position:absolute;
+            left:0;
+            bottom:0;
+            width:100%;
+            background:linear-gradient(transparent, rgba(0,40,70,0.82));
+            color:white;
+            padding:30px 22px 22px;
+        }
+        .card-overlay h3{
+            font-size:23px;
+            margin-bottom:8px;
+        }
+        .card-overlay p{
+            font-size:14.5px;
+            opacity:0.92;
+            line-height:1.6;
+        }
+        .card-tag{
+            display:inline-block;
+            margin-top:12px;
+            border:1px solid #fff;
+            padding:6px 14px;
+            border-radius:20px;
+            font-size:14px;
+        }
+    
+        .scroll-card-box{
+            display:flex;
+            gap:18px;
+            overflow-x:auto;
+            padding-bottom:10px;
+        }
+        .scroll-card-box::-webkit-scrollbar{
+            height:6px;
+        }
+        .scroll-card-box::-webkit-scrollbar-thumb{
+            background:#b9c8d6;
+            border-radius:4px;
+        }
+        .scroll-arch-card{
+            min-width:220px;
+            border-radius:14px;
+            overflow:hidden;
+            box-shadow:0 3px 14px rgba(0,0,0,0.09);
+            flex-shrink:0;
+            cursor:pointer;
+            transition:0.28s;
+        }
+        .scroll-arch-card:hover{
+            transform:translateY(-5px);
+        }
+        .arch-card-img{
+            height:140px;
+            background:#cad4dd;
+        }
+        .arch-card-text{
+            padding:14px 12px;
+        }
+        .arch-card-text h4{
+            font-size:16px;
+            margin-bottom:4px;
+        }
+        .arch-card-text p{
+            font-size:13px;
+            color:#777;
+        }
+
+       
+        .news-list{
+            display:grid;
+            gap:16px;
+        }
+        .news-item{
+            display:flex;
+            gap:16px;
+            padding-bottom:16px;
+            border-bottom:1px solid #eee;
+            cursor:pointer;
+        }
+        .news-item:last-child{
+            border-bottom:none;
+            padding-bottom:0;
+        }
+        .news-img{
+            width:110px;
+            height:80px;
+            background:#cad4dd;
+            border-radius:10px;
+            flex-shrink:0;
+        }
+        .news-info{
+            flex:1;
+        }
+        .news-info h4{
+            font-size:16px;
+            margin-bottom:6px;
+        }
+        .news-info p{
+            font-size:13px;
+            color:#777;
+            line-height:1.5;
+        }
+
+             .stat-row{
+            display:grid;
+            grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+            gap:20px;
+        }
+        .stat-item{
+            text-align:center;
+            padding:20px 10px;
+            background:linear-gradient(145deg,#f0f5f9,#e4ecf3);
+            border-radius:14px;
+        }
+        .stat-num{
+            font-size:32px;
+            font-weight:bold;
+            color:#2E4A62;
+            margin-bottom:6px;
+        }
+        .stat-label{
+            font-size:14px;
+            color:#555;
+        }
+
+      
+        .quick-grid{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:14px;
+        }
+        .quick-btn{
+            text-align:center;
+            padding:16px 8px;
+            background:#f0f5f9;
+            border-radius:14px;
+            cursor:pointer;
+            transition:0.25s;
+        }
+        .quick-btn:hover{
+            background:#2E4A62;
+            color:#fff;
+        }
+        .quick-icon{
+            font-size:26px;
+            margin-bottom:8px;
+        }
+        .quick-name{
+            font-size:13px;
+        }
+
+        .copyright-text{
+            text-align:center;
+            font-size:13px;
+            color:#888;
+            padding:10px 10px 10px;
+        }
+       
+        #backTop{
+            position:fixed;
+            bottom:90px;
+            right:20px;
+            width:48px;
+            height:48px;
+            background:#2E4A62;
+            color:white;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            cursor:pointer;
+            display:none;
+            z-index:90;
+            box-shadow:0 4px 14px rgba(0,0,0,0.2);
+        }
+       
+        footer{
+            position:fixed;
+            bottom:0;
+            width:100%;
+            display:flex;
+            background:white;
+            border-top:1px solid #ddd;
+            box-shadow:0 -2px 10px rgba(0,0,0,0.06);
+        }
+        .footer-item{
+            flex:1;
+            text-align:center;
+            padding:15px 6px;
+            font-size:14px;
+            color:#666;
+            cursor:pointer;
+        }
+        .footer-item.active{
+            color:#2E4A62;
+            font-weight:bold;
+        }
+        a{
+            text-decoration:none;
+            color:inherit;
+        }
+     
+        @media(max-width:520px){
+            header h1{
+                font-size:22px;
+            }
+            .slider-wrap{
+                height:220px;
+            }
+            .slide-item{
+                height:220px;
+            }
+            .home-section-title{
+                font-size:20px;
+            }
+            .section-wrap{
+                margin:24px 12px;
+                padding:20px 16px;
+            }
+            .quick-grid{
+                grid-template-columns:repeat(2,1fr);
+            }
+            .news-item{
+                flex-direction:column;
+            }
+            .news-img{
+                width:100%;
+                height:130px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+                <div class="lang-switch">
+            <button class="lang-btn" id="langToggle">Русский</button>
+        </div>
+        <h1 data-i18n="siteTitle">中俄建筑文化交流平台</h1>
+        <div class="search-area">
+            <input id="search-input" data-i18n-placeholder="searchPlaceholder" placeholder="输入建筑名称搜索... / Поиск по названию..." />
+            <button id="search-btn" data-i18n="searchBtn">搜索</button>
+        </div>
+    </header>
+        <div class="slider-wrap">
+        <div class="slider-container" id="sliderBox">
+            <div class="slide-item">
+                <div class="slide-img">【轮播图1：中华古建筑】</div>
+                <div class="slide-text">
+                    <h3 data-i18n="slide1Title">中华传统建筑</h3>
+                    <p data-i18n="slide1Desc">木构殿堂，千年传承，感受中式营造之美</p >
+                </div>
+            </div>
+            <div class="slide-item">
+                <div class="slide-img">【轮播图2：俄罗斯建筑】</div>
+                <div class="slide-text">
+                    <h3 data-i18n="slide2Title">俄罗斯特色建筑</h3>
+                    <p data-i18n="slide2Desc">洋葱穹顶，华丽厚重，异域建筑艺术赏析</p >
+                </div>
+            </div>
+            <div class="slide-item">
+                <div class="slide-img">【轮播图3：中俄文化交流】</div>
+                <div class="slide-text">
+                    <h3 data-i18n="slide3Title">中俄建筑文化交流</h3>
+                    <p data-i18n="slide3Desc">两国建筑对比学习，促进文明互鉴</p >
+                </div>
+            </div>
+        </div>
+        <div class="arrow arrow-left" onclick="prevSlide()">&lt;</div>
+        <div class="arrow arrow-right" onclick="nextSlide()">&gt;</div>
+        <div class="dot-wrap">
+            <span class="dot active" onclick="goSlide(0)"></span>
+            <span class="dot" onclick="goSlide(1)"></span>
+            <span class="dot" onclick="goSlide(2)"></span>
+        </div>
+    </div>
+
+    
+    <div class="section-wrap">
+        <div class="section-title-row">
+            <h2 class="section-title" data-i18n="aboutTitle">平台简介</h2>
+        </div>
+        <p class="intro-desc" data-i18n="aboutText">本平台致力于展示中国与俄罗斯建筑艺术成果，收集古建、近代建筑、跨境合作工程资料，为学习者提供查阅、对比、答题学习的线上空间，推动两国建筑文化互鉴交流。</p >
+        <div class="intro-tag-group">
+            <span class="intro-tag" data-i18n="tag1">建筑资料库</span>
+            <span class="intro-tag" data-i18n="tag2">双语浏览</span>
+            <span class="intro-tag" data-i18n="tag3">对比赏析</span>
+            <span class="intro-tag" data-i18n="tag4">知识科普</span>
+        </div>
+    </div>
+
+        <h2 class="home-section-title" data-i18n="homeCategoryTitle">建筑分类浏览</h2>
+    <div class="category-card-wrap">
+        <div class="home-category-card" onclick="location.href='category.html?type=china'">
+            <div class="card-bg">【中华建筑背景图】</div>
+            <div class="card-overlay">
+                <h3 data-i18n="catChina">中华建筑</h3>
+                <p data-i18n="catChinaDesc">感受中国传统木构建筑，宫殿、坛庙、古建遗存一览</p >
+                <span class="card-tag" data-i18n="enterBtn">进入浏览 →</span>
+            </div>
+        </div>
+        <div class="home-category-card" onclick="location.href='category.html?type=russia'">
+            <div class="card-bg">【俄罗斯建筑背景图】</div>
+            <div class="card-overlay">
+                <h3 data-i18n="catRussia">俄罗斯建筑</h3>
+                <p data-i18n="catRussiaDesc">洋葱穹顶、巴洛克宫殿，品读俄罗斯建筑艺术</p >
+                <span class="card-tag" data-i18n="enterBtn">进入浏览 →</span>
+            </div>
+        </div>
+        <div class="home-category-card" onclick="location.href='category.html?type=co'">
+            <div class="card-bg">【共建工程背景图】</div>
+            <div class="card-overlay">
+                <h3 data-i18n="catCo">中俄共建工程</h3>
+                <p data-i18n="catCoDesc">跨境基建合作项目，见证两国互联互通</p >
+                <span class="card-tag" data-i18n="enterBtn">进入浏览 →</span>
+            </div>
+        </div>
+    </div>
+
+        <div class="section-wrap">
+        <div class="section-title-row">
+            <h2 class="section-title" data-i18n="selectArch">精选代表建筑</h2>
+            <span class="more-link" data-i18n="viewMore">查看更多 ></span>
+        </div>
+        <div class="scroll-card-box">
+            <div class="scroll-arch-card">
+                <div class="arch-card-img">【建筑图】</div>
+                <div class="arch-card-text">
+                    <h4 data-i18n="arch1">故宫紫禁城</h4>
+                    <p data-i18n="arch1tip">中国古代宫殿建筑典范</p >
+                </div>
+            </div>
+            <div class="scroll-arch-card">
+                <div class="arch-card-img">【建筑图】</div>
+                <div class="arch-card-text">
+                    <h4 data-i18n="arch2">圣瓦西里大教堂</h4>
+                    <p data-i18n="arch2tip">俄罗斯经典洋葱穹顶建筑</p >
+                </div>
+            </div>
+            <div class="scroll-arch-card">
+                <div class="arch-card-img">【建筑图】</div>
+                <div class="arch-card-text">
+                    <h4 data-i18n="arch3">天坛</h4>
+                    <p data-i18n="arch3tip">明清皇家祭祀建筑群</p >
+                </div>
+            </div>
+            <div class="scroll-arch-card">
+                <div class="arch-card-img">【建筑图】</div>
+                <div class="arch-card-text">
+                    <h4 data-i18n="arch4">冬宫</h4>
+                    <p data-i18n="arch4tip">俄罗斯巴洛克风格宫殿</p >
+                </div>
+            </div>
+            <div class="scroll-arch-card">
+                <div class="arch-card-img">【建筑图】</div>
+                <div class="arch-card-text">
+                    <h4 data-i18n="arch5">黑河大桥</h4>
+                    <p data-i18n="arch5tip">中俄跨境合作工程</p >
+                </div>
+            </div>
+        </div>
+    </div>
+   <!-- 板块4：建筑资讯 -->
+    <div class="section-wrap">
+        <div class="section-title-row">
+            <h2 class="section-title" data-i18n="newsTitle">建筑文化资讯</h2>
+            <span class="more-link" data-i18n="viewMore">查看更多 ></span>
+        </div>
+        <div class="news-list">
+            <div class="news-item">
+                <div class="news-img">【新闻配图】</div>
+                <div class="news-info">
+                    <h4 data-i18n="n1title">中俄古建筑保护学术交流开展</h4>
+                    <p data-i18n="n1desc">两国专家围绕木结构、砖石建筑修缮技术开展研讨，分享文物保护经验。</p >
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="news-img">【新闻配图】</div>
+                <div class="news-info">
+                    <h4 data-i18n="n2title">传统建筑艺术线上展览上线</h4>
+                    <p data-i18n="n2desc">线上展览汇集百余件建筑图像资料，方便大众了解两国营造技艺。</p >
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="news-img">【新闻配图】</div>
+                <div class="news-info">
+                    <h4 data-i18n="n3title">跨境基建项目建筑特色解析</h4>
+                    <p data-i18n="n3desc">结合地域气候，融合两国工程技术，打造跨境标志性建筑。</p >
+                </div>
+            </div>
+        </div>
+    </div>
+
+       <div class="section-wrap">
+        <div class="section-title-row">
+            <h2 class="section-title" data-i18n="statTitle">平台数据</h2>
+        </div>
+        <div class="stat-row">
+            <div class="stat-item">
+                <div class="stat-num">128</div>
+                <div class="stat-label" data-i18n="s1">中华建筑收录</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">96</div>
+                <div class="stat-label" data-i18n="s2">俄罗斯建筑收录</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">22</div>
+                <div class="stat-label" data-i18n="s3">共建工程项目</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-num">64</div>
+                <div class="stat-label" data-i18n="s4">知识答题题库</div>
+            </div>
+        </div>
+    </div>
+
+        <div class="section-wrap">
+        <div class="section-title-row">
+            <h2 class="section-title" data-i18n="quickTitle">快速功能</h2>
+        </div>
+        <div class="quick-grid">
+            <div class="quick-btn" onclick="location.href='category.html'">
+                <div class="quick-icon">📚</div>
+                <div class="quick-name" data-i18n="q1">建筑库</div>
+            </div>
+            <div class="quick-btn" onclick="location.href='compare.html'">
+                <div class="quick-icon">🔍</div>
+                <div class="quick-name" data-i18n="q2">对比赏析</div>
+            </div>
+            <div class="quick-btn" onclick="location.href='quiz.html'">
+                <div class="quick-icon">✏️</div>
+                <div class="quick-name" data-i18n="q3">知识答题</div>
+            </div>
+            <div class="quick-btn">
+                <div class="quick-icon">ℹ️</div>
+                <div class="quick-name" data-i18n="q4">关于平台</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="copyright-text">© 2026 中俄建筑文化交流平台 版权所有</div>
+
+    <div id="backTop">↑</div>
+    <footer>
+        <div class="footer-item active"><a href=" " data-i18n="footHome">首页浏览</a ></div>
+        <div class="footer-item"><a href="category.html" data-i18n="footCat">建筑分类</a ></div>
+        <div class="footer-item"><a href="compare.html" data-i18n="footCompare">对比赏析</a ></div>
+        <div class="footer-item"><a href="quiz.html" data-i18n="footQuiz">知识答题</a ></div>
+    </footer>
+    <script>
+        //多语言字典（新增全部板块俄文翻译）
+        const i18n = {
+            zh:{
+                siteTitle:"中俄建筑文化交流平台",
+                searchPlaceholder:"输入建筑名称搜索...",
+                searchBtn:"搜索",
+                slide1Title:"中华传统建筑",
+                slide1Desc:"木构殿堂，千年传承，感受中式营造之美",
+                slide2Title:"俄罗斯特色建筑",
+                slide2Desc:"洋葱穹顶，华丽厚重，异域建筑艺术赏析",
+                slide3Title:"中俄建筑文化交流",
+                slide3Desc:"两国建筑对比学习，促进文明互鉴",
+                homeCategoryTitle:"建筑分类浏览",
+                catChina:"中华建筑",
+                catChinaDesc:"感受中国传统木构建筑，宫殿、坛庙、古建遗存一览",
+                catRussia:"俄罗斯建筑",
+                catRussiaDesc:"洋葱穹顶、巴洛克宫殿，品读俄罗斯建筑艺术",
+                catCo:"中俄共建工程",
+                catCoDesc:"跨境基建合作项目，见证两国互联互通",
+                enterBtn:"进入浏览 →",
+                footHome:"首页浏览",
+                footCat:"建筑分类",
+                footCompare:"对比赏析",
+                footQuiz:"知识答题",
+                aboutTitle:"平台简介",
+                aboutText:"本平台致力于展示中国与俄罗斯建筑艺术成果，收集古建、近代建筑、跨境合作工程资料，为学习者提供查阅、对比、答题学习的线上空间，推动两国建筑文化互鉴交流。",
+                tag1:"建筑资料库",
+                tag2:"双语浏览",
+                tag3:"对比赏析",
+                tag4:"知识科普",
+                selectArch:"精选代表建筑",
+                viewMore:"查看更多 >",
+                arch1:"故宫紫禁城",
+                arch1tip:"中国古代宫殿建筑典范",
+                arch2:"圣瓦西里大教堂",
+                arch2tip:"俄罗斯经典洋葱穹顶建筑",
+                arch3:"天坛",
+                arch3tip:"明清皇家祭祀建筑群",
+                arch4:"冬宫",
+                arch4tip:"俄罗斯巴洛克风格宫殿",
+                arch5:"黑河大桥",
+                arch5tip:"中俄跨境合作工程",
+                newsTitle:"建筑文化资讯",
+                n1title:"中俄古建筑保护学术交流开展",
+                n1desc:"两国专家围绕木结构、砖石建筑修缮技术开展研讨，分享文物保护经验。",
+                n2title:"传统建筑艺术线上展览上线",
+                n2desc:"线上展览汇集百余件建筑图像资料，方便大众了解两国营造技艺。",
+                n3title:"跨境基建项目建筑特色解析",
+                n3desc:"结合地域气候，融合两国工程技术，打造跨境标志性建筑。",
+                statTitle:"平台数据",
+                s1:"中华建筑收录",
+                s2:"俄罗斯建筑收录",
+                s3:"共建工程项目",
+                s4:"知识答题题库",
+                quickTitle:"快速功能",
+                q1:"建筑库",
+                q2:"对比赏析",
+                q3:"知识答题",
+                q4:"关于平台"
+            },
+            ru:{
+                siteTitle:"Платформа культурного обмена архитектуры Китая и России",
+                searchPlaceholder:"Поиск по названию здания...",
+                searchBtn:"Поиск",
+                slide1Title:"Традиционная архитектура Китая",
+                slide1Desc:"Деревянные дворцы, тысячелетнее наследие, красота китайского зодчества",
+                slide2Title:"Архитектура России",
+                slide2Desc:"Луковичные купола, барочные дворцы, искусство российской архитектуры",
+                slide3Title:"Обмен архитектурной культурой Китая и России",
+                slide3Desc:"Изучение архитектуры двух стран, взаимное понимание цивилизаций",
+                homeCategoryTitle:"Категории архитектуры",
+                catChina:"Архитектура Китая",
+                catChinaDesc:"Традиционные китайские деревянные строения, дворцы и храмы",
+                catRussia:"Архитектура России",
+                catRussiaDesc:"Луковичные купола, барочные дворцы, искусство России",
+                catCo:"Совместные проекты Китая и России",
+                catCoDesc:"Трансграничная инфраструктура, взаимосвязь двух стран",
+                enterBtn:"Перейти →",
+                footHome:"Главная",
+                footCat:"Категории",
+                footCompare:"Сравнение",
+                footQuiz:"Тесты",
+                aboutTitle:"О платформе",
+                aboutText:"Платформа показывает достижения архитектуры Китая и России, собирает материалы древних и современных зданий, обеспечивает изучение и обмен культурой.",
+                tag1:"База зданий",
+                tag2:"Два языка",
+                tag3:"Сравнение",
+                tag4:"Популяризация знаний",
+                selectArch:"Избранные здания",
+                viewMore:"Подробнее >",
+                arch1:"Запретный город",
+                arch1tip:"Образец древней китайской дворцовой архитектуры",
+                arch2:"Собор Василия Блаженного",
+                arch2tip:"Знаменитая церковь с луковичными куполами",
+                arch3:"Храм Неба",
+                arch3tip:"Комплекс императорских жертвенных зданий",
+                arch4:"Зимний дворец",
+                arch4tip:"Барочный дворец России",
+                arch5:"Хэйхэский мост",
+                arch5tip:"Совместный трансграничный проект",
+                newsTitle:"Новости архитектуры",
+                n1title:"Научный обмен по сохранению древних зданий",
+                n1desc:"Эксперты обсуждают технологии реставрации деревянных и каменных сооружений.",
+                n2title:"Открыта онлайн‑выставка традиционной архитектуры",
+                n2desc:"Выставка содержит сотни изображений зданий Китая и России.",
+                n3title:"Анализ особенностей трансграничных инфраструктурных объектов",
+                n3desc:"Проекты сочетают инженерные решения двух стран и местные климатические условия.",
+                statTitle:"Статистика платформы",
+                s1:"Зданий Китая",
+                s2:"Зданий России",
+                s3:"Совместных проектов",
+                s4:"Вопросов тестов",
+                quickTitle:"Быстрый доступ",
+                q1:"База зданий",
+                q2:"Сравнение",
+                q3:"Тесты",
+                q4:"О нас"
+            }
+        }
+        let currentLang = "zh";
+        const langToggleBtn = document.getElementById("langToggle");
+        function renderLang(){
+            const dict = i18n[currentLang];
+            document.querySelectorAll("[data-i18n]").forEach(el=>{
+                const key = el.getAttribute("data-i18n");
+                el.innerText = dict[key];
+            })
+            document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
+                const key = el.getAttribute("data-i18n-placeholder");
+                el.placeholder = dict[key];
+            })
+            langToggleBtn.innerText = currentLang==="zh"?"Русский":"中文";
+        }
+        langToggleBtn.onclick = ()=>{
+            currentLang = currentLang==="zh"?"ru":"zh";
+            renderLang();
+        }
+        renderLang();
+       
+        let currentSlide = 0;
+        const totalSlide = 3;
+        const sliderBox = document.getElementById("sliderBox");
+        const dots = document.querySelectorAll(".dot");
+        function updateSlider(){
+            sliderBox.style.transform = `translateX(-${currentSlide * 100 / totalSlide}%)`;
+            dots.forEach((dot,i)=>{
+                dot.classList.remove("active");
+                if(i === currentSlide) dot.classList.add("active");
+            })
+        }
+        function nextSlide(){
+            currentSlide = (currentSlide +1) % totalSlide;
+            updateSlider();
+        }
+        function prevSlide(){
+            currentSlide = (currentSlide -1 + totalSlide) % totalSlide;
+            updateSlider();
+        }
+        function goSlide(num){
+            currentSlide = num;
+            updateSlider();
+        }
+                let autoSlider = setInterval(nextSlide,3000);
+        
+        document.querySelector(".slider-wrap").onmouseover = ()=>clearInterval(autoSlider);
+        document.querySelector(".slider-wrap").onmouseout = ()=>autoSlider = setInterval(nextSlide,3000);
+        
+        document.getElementById("search-btn").onclick = function(){
+            let keyword = document.getElementById("search-input").value.trim();
+            if(!keyword){
+                alert(currentLang==="zh"?"请输入搜索词":"Введите слово для поиска");
+                return;
+            }
+            location.href = "category.html?search="+encodeURIComponent(keyword);
+        }
+        const backTopBtn = document.getElementById("backTop");
+        window.onscroll = function(){
+            backTopBtn.style.display = window.scrollY > 400 ? "flex" : "none";
+        }
+        backTopBtn.onclick = function(){
+            window.scrollTo({top:0,behavior:"smooth"});
+        }
+    </script>
+</body>
+</html>
