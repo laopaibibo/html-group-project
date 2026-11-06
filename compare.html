@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>中俄建筑对比赏析</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Microsoft Yahei", sans-serif;
+}
+
+body {
+  background-color: #f4f6f8;
+  color: #333;
+  padding-top: 72px;
+  padding-bottom: 85px;
+}
+
+/* 顶部导航 */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(135deg, #2E4A62, #3c5f7c);
+  color: #fff;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 99;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.header-title {
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.lang-btn {
+  padding: 7px 14px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  border-radius: 24px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.25s;
+}
+
+.lang-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 页面容器 */
+.compare-container {
+  padding: 18px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.page-intro {
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 20px rgba(46, 74, 98, 0.08);
+}
+
+.page-intro h2 {
+  font-size: 22px;
+  color: #2E4A62;
+  margin-bottom: 12px;
+  border-left: 5px solid #2E4A62;
+  padding-left: 14px;
+}
+
+.page-intro p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #555;
+}
+
+/* ✅ 新增：图片上传对比模块 */
+.upload-compare-block{
+  background:#fff;
+  border-radius:18px;
+  padding:24px;
+  margin-bottom:22px;
+  box-shadow: 0 4px 20px rgba(46, 74, 98, 0.08);
+}
+.upload-title{
+  font-size:19px;
+  color:#2E4A62;
+  font-weight:bold;
+  margin-bottom:18px;
+  border-left:5px solid #2E4A62;
+  padding-left:14px;
+}
+.upload-two-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-bottom:16px;
+}
+.upload-card{
+  background:#f7f9fb;
+  border:2px dashed #b8c8d6;
+  border-radius:14px;
+  padding:16px;
+  text-align:center;
+}
+.upload-card h4{
+  margin-bottom:10px;
+  color:#2E4A62;
+}
+.upload-card input{
+  width:100%;
+}
+.preview-img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-top:10px;
+  display:none;
+}
+.btn-compare{
+  width:100%;
+  padding:12px;
+  background:#2E4A62;
+  color:white;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+  cursor:pointer;
+}
+.compare-result{
+  margin-top:16px;
+  padding:16px;
+  background:#eef4f9;
+  border-radius:12px;
+  display:none;
+}
+.compare-result h4{
+  margin-bottom:8px;
+  color:#2E4A62;
+}
+.compare-result p{
+  font-size:14px;
+  line-height:1.7;
+  color:#444;
+}
+
+/* 对比模块 */
+.compare-block {
+  background: #fff;
+  border-radius: 18px;
+  padding: 24px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 20px rgba(46, 74, 98, 0.08);
+}
+
+.compare-title {
+  font-size: 19px;
+  color: #2E4A62;
+  font-weight: bold;
+  margin-bottom: 18px;
+  border-left: 5px solid #2E4A62;
+  padding-left: 14px;
+}
+/* 左右双栏对比 */
+.two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.building-column {
+  background: #f7f9fb;
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid #e8edf2;
+}
+
+.building-column h4 {
+  font-size: 17px;
+  color: #2E4A62;
+  margin-bottom: 10px;
+}
+
+.building-column p {
+  font-size: 14px;
+  line-height: 1.75;
+  color: #555;
+}
+
+/* 图片占位 */
+.image-box {
+  width: 100%;
+  height: 160px;
+  background: #cad4dd;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 14px;
+}
+
+/* 总结区 */
+.summary-box {
+  margin-top: 18px;
+  padding: 16px;
+  background: linear-gradient(145deg, #eef4f9, #dfe9f2);
+  border-radius: 12px;
+  border-left: 5px solid #2E4A62;
+}
+
+.summary-box p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #444;
+}
+
+/* 代表建筑卡片 */
+.architecture-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.architecture-card {
+  background: #f7f9fb;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #e8edf2;
+}
+
+.architecture-card .image-box {
+  margin-bottom: 0;
+  border-radius: 12px 12px 0 0;
+}
+
+.architecture-card-body {
+  padding: 16px;
+}
+
+.architecture-card-body h4 {
+  font-size: 17px;
+  color: #2E4A62;
+  margin-bottom: 8px;
+}
+
+.architecture-card-body p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #555;
+}
+
+/* 回到顶部 */
+#backTop {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  background: #2E4A62;
+  color: #fff;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 90;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* 底部导航 */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  border-top: 1px solid #ddd;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.footer-item {
+  flex: 1;
+  text-align: center;
+  padding: 15px 6px;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+}
+
+.footer-item.active {
+  color: #2E4A62;
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 移动端适配 */
+@media (max-width: 520px) {
+  .header-title {
+    font-size: 19px;
+  }
+  .upload-two-col,
+  .two-column,
+  .architecture-grid {
+    grid-template-columns: 1fr;
+  }
+  .compare-block,
+  .page-intro,
+  .upload-compare-block {
+    padding: 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div></div>
+  <h1 class="header-title" data-i18n="pageTitle">中俄建筑对比赏析</h1>
+  <button class="lang-btn" id="langToggle">Русский</button>
+</header>
+
+<div class="compare-container">
+  <!-- 页面介绍 -->
+  <section class="page-intro">
+    <h2 data-i18n="introTitle">建筑对比概览</h2>
+    <p data-i18n="introText">
+      中国建筑以木构体系、院落布局和天人合一的空间观为核心；俄罗斯建筑则以砖石结构、洋葱穹顶和宏伟宫殿著称。通过风格、结构、屋顶形态与代表建筑的对比，理解两国建筑文化的差异与特色。
+    </p >
+  </section>
+
+ 
+  <section class="upload-compare-block">
+  <h3 class="upload-title" data-i18n="uploadTitle">上传建筑图片对比</h3>
+  
+  <div class="upload-two-col">
+    <!-- 中国建筑部分 -->
+    <div class="upload-card">
+      <h4 data-i18n="chinaUpload">上传中国建筑图片</h4>
+      <!-- 注意这里：加上了闭合的 > -->
+      <input type="file" id="chinaFile">
+      < img class="preview-img" id="chinaPreview" style="display:none;">
+    </div>
+
+    <!-- 俄罗斯建筑部分 -->
+    <div class="upload-card">
+      <h4 data-i18n="rusUpload">上传俄罗斯建筑图片</h4>
+      <!-- 修正了 id，并加上了闭合的 > -->
+      <input type="file" id="rusFile">
+      < img class="preview-img" id="rusPreview" style="display:none;">
+    </div>
+  </div>
+
+  <!-- 按钮部分 -->
+  <button class="btn-compare" id="compareBtn" data-i18n="compareBtn">开始对比分析</button>
+  <div class="compare-result" id="resultBox"></div>
+</section>
+
+  <!-- 1. 建筑风格对比 -->
+  <section class="compare-block">
+    <h3 class="compare-title" data-i18n="block1Title">建筑风格对比</h3>
+    <div class="two-column">
+      <div class="building-column">
+        <div class="image-box">【中国传统建筑图】</div>
+        <h4 data-i18n="chinaStyle">中华建筑风格</h4>
+        <p data-i18n="chinaStyleDesc">
+          强调对称、秩序与自然相融，常见宫殿、坛庙、园林、民居等类型。飞檐、斗拱、院落组合是其鲜明特征。
+        </p >
+      </div>
+      <div class="building-column">
+        <div class="image-box">【俄罗斯传统建筑图】</div>
+        <h4 data-i18n="rusStyle">俄罗斯建筑风格</h4>
+        <p data-i18n="rusStyleDesc">
+          融合拜占庭、巴洛克与本土木构传统，建筑体量厚重，色彩鲜明，洋葱穹顶和装饰性立面极具辨识度。
+        </p >
+      </div>
+    </div>
+    <div class="summary-box">
+      <p data-i18n="styleSummary">
+        中国建筑更重视横向展开与群体秩序，俄罗斯建筑更强调竖向升腾与视觉震撼。二者分别体现了东方礼制文化与俄罗斯东正教、帝国建筑审美。
+      </p >
+    </div>
+  </section>
+
+  <!-- 2. 结构体系对比 -->
+  <section class="compare-block">
+    <h3 class="compare-title" data-i18n="block2Title">结构体系对比</h3>
+    <div class="two-column">
+      <div class="building-column">
+        <div class="image-box">【中国木结构图】</div>
+        <h4 data-i18n="chinaStruct">中国木构体系</h4>
+        <p data-i18n="chinaStructDesc">
+          以梁柱、斗拱、榫卯为核心，形成“墙倒屋不塌”的柔性结构。木构建筑强调模数、比例和空间层次。
+        </p >
+      </div>
+      <div class="building-column">
+        <div class="image-box">【俄罗斯砖石结构图】</div>
+        <h4 data-i18n="rusStruct">俄罗斯砖石体系</h4>
+        <p data-i18n="rusStructDesc">
+          以砖石墙体、拱券、穹顶和柱式构造为主，结构更厚重稳定。东正教教堂和宫殿建筑常采用集中式或轴向布局。
+        </p >
+      </div>
+    </div>
+    <div class="summary-box">
+      <p data-i18n="structSummary">
+        中国木构结构具有较强的弹性和适应性，适合院落式群体布局；俄罗斯砖石结构更强调永恒感、防御感和仪式感。
+      </p >
+    </div>
+  </section>
+
+  <!-- 3. 屋顶与穹顶对比 -->
+  <section class="compare-block">
+    <h3 class="compare-title" data-i18n="block3Title">屋顶与穹顶对比</h3>
+    <div class="two-column">
+      <div class="building-column">
+        <div class="image-box">【中国屋顶图】</div>
+        <h4 data-i18n="chinaRoof">中国传统屋顶</h4>
+        <p data-i18n="chinaRoofDesc">
+          庑殿顶、歇山顶、攒尖顶等形态丰富，屋顶出檐深远，屋脊装饰等级分明，体现礼制与审美结合。
+        </p >
+      </div>
+      <div class="building-column">
+        <div class="image-box">【俄罗斯穹顶图】</div>
+        <h4 data-i18n="rusRoof">俄罗斯洋葱穹顶</h4>
+        <p data-i18n="rusRoofDesc">
+          洋葱穹顶是俄罗斯建筑标志性元素，既适应积雪气候，也强化宗教建筑的升腾感与视觉中心。
+        </p >
+      </div>
+    </div>
+    <div class="summary-box">
+      <p data-i18n="roofSummary">
+        中国屋顶重在曲线、出檐和等级秩序；俄罗斯穹顶重在轮廓、色彩和宗教象征。二者都成为各自建筑文化最直观的识别符号。
+      </p >
+    </div>
+  </section>
+
+  <!-- 4. 典型代表建筑对比 -->
+  <section class="compare-block">
+    <h3 class="compare-title" data-i18n="block4Title">典型代表建筑对比</h3>
+    <div class="architecture-grid">
+      <div class="architecture-card">
+        <div class="image-box">【故宫图】</div>
+        <div class="architecture-card-body">
+          <h4 data-i18n="arch1Name">故宫紫禁城</h4>
+          <p data-i18n="arch1Desc">
+            中国明清皇家宫殿，以中轴线、院落群和木构殿宇体现礼制秩序，是中国古代宫殿建筑的代表。
+          </p >
+        </div>
+      </div>
+      <div class="architecture-card">
+        <div class="image-box">【圣瓦西里大教堂图】</div>
+        <div class="architecture-card-body">
+          <h4 data-i18n="arch2Name">圣瓦西里大教堂</h4>
+          <p data-i18n="arch2Desc">
+            俄罗斯莫斯科红场标志性建筑，彩色洋葱穹顶造型独特，融合东正教教堂与俄罗斯民间建筑语言。
+          </p >
+        </div>
+      </div>
+      <div class="architecture-card">
+        <div class="image-box">【天坛图】</div>
+        <div class="architecture-card-body">
+          <h4 data-i18n="arch3Name">天坛</h4>
+          <p data-i18n="arch3Desc">
+            明清皇家祭天建筑群，以圆形祭坛和祈年殿表达天人关系，体现中国古代宇宙观与建筑象征。
+          </p >
+        </div>
+      </div>
+      <div class="architecture-card">
+        <div class="image-box">【冬宫图】</div>
+        <div class="architecture-card-body">
+          <h4 data-i18n="arch4Name">冬宫</h4>
+          <p data-i18n="arch4Desc">
+            俄罗斯圣彼得堡巴洛克宫殿，立面华丽、空间宏大，体现帝国时期俄罗斯建筑的宏伟与装饰性。
+          </p >
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div id="backTop">↑</div>
+
+<footer>
+  <div class="footer-item"><a href=" " data-i18n="footHome">首页浏览</a ></div>
+  <div class="footer-item"><a href="category.html" data-i18n="footCat">建筑分类</a ></div>
+  <div class="footer-item active"><a href="compare.html" data-i18n="footCompare">对比赏析</a ></div>
+  <div class="footer-item"><a href="quiz.html" data-i18n="footQuiz">知识答题</a ></div>
+</footer>
+
+<script>
+const i18n = {
+  zh: {
+    pageTitle: "中俄建筑对比赏析",
+    introTitle: "建筑对比概览",
+    introText: "中国建筑以木构体系、院落布局和天人合一的空间观为核心；俄罗斯建筑则以砖石结构、洋葱穹顶和宏伟宫殿著称。通过风格、结构、屋顶形态与代表建筑的对比，理解两国建筑文化的差异与特色。",
+    uploadTitle:"上传建筑图片对比",
+    chinaUpload:"上传中国建筑图片",
+    rusUpload:"上传俄罗斯建筑图片",
+    compareBtn:"开始对比分析",
+    resultTitle:"对比结果",
+    resultText:"已读取两张建筑图片，中国建筑多为木构架，讲究对称与自然融合；俄罗斯建筑多砖石结构，标志性洋葱穹顶，造型华丽厚重。",
+    block1Title: "建筑风格对比",
+    chinaStyle: "中华建筑风格",
+    chinaStyleDesc: "强调对称、秩序与自然相融，常见宫殿、坛庙、园林、民居等类型。飞檐、斗拱、院落组合是其鲜明特征。",
+    rusStyle: "俄罗斯建筑风格",
+    rusStyleDesc: "融合拜占庭、巴洛克与本土木构传统，建筑体量厚重，色彩鲜明，洋葱穹顶和装饰性立面极具辨识度。",
+    styleSummary: "中国建筑更重视横向展开与群体秩序，俄罗斯建筑更强调竖向升腾与视觉震撼。二者分别体现了东方礼制文化与俄罗斯东正教、帝国建筑审美。",
+    block2Title: "结构体系对比",
+    chinaStruct: "中国木构体系",
+    chinaStructDesc: "以梁柱、斗拱、榫卯为核心，形成“墙倒屋不塌”的柔性结构。木构建筑强调模数、比例和空间层次。",
+    rusStruct: "俄罗斯砖石体系",
+    rusStructDesc: "以砖石墙体、拱券、穹顶和柱式构造为主，结构更厚重稳定。东正教教堂和宫殿建筑常采用集中式或轴向布局。",
+    structSummary: "中国木构结构具有较强的弹性和适应性，适合院落式群体布局；俄罗斯砖石结构更强调永恒感、防御感和仪式感。",
+    block3Title: "屋顶与穹顶对比",
+    chinaRoof: "中国传统屋顶",
+    chinaRoofDesc: "庑殿顶、歇山顶、攒尖顶等形态丰富，屋顶出檐深远，屋脊装饰等级分明，体现礼制与审美结合。",
+    rusRoof: "俄罗斯洋葱穹顶",
+    rusRoofDesc: "洋葱穹顶是俄罗斯建筑标志性元素，既适应积雪气候，也强化宗教建筑的升腾感与视觉中心。",
+    roofSummary: "中国屋顶重在曲线、出檐和等级秩序；俄罗斯穹顶重在轮廓、色彩和宗教象征。二者都成为各自建筑文化最直观的识别符号。",
+    block4Title: "典型代表建筑对比",
+    arch1Name: "故宫紫禁城",
+    arch1Desc: "中国明清皇家宫殿，以中轴线、院落群和木构殿宇体现礼制秩序，是中国古代宫殿建筑的代表。",
+    arch2Name: "圣瓦西里大教堂",
+    arch2Desc: "俄罗斯莫斯科红场标志性建筑，彩色洋葱穹顶造型独特，融合东正教教堂与俄罗斯民间建筑语言。",
+    arch3Name: "天坛",
+    arch3Desc: "明清皇家祭天建筑群，以圆形祭坛和祈年殿表达天人关系，体现中国古代宇宙观与建筑象征。",
+    arch4Name: "冬宫",
+    arch4Desc: "俄罗斯圣彼得堡巴洛克宫殿，立面华丽、空间宏大，体现帝国时期俄罗斯建筑的宏伟与装饰性。",
+    footHome: "首页浏览",
+    footCat: "建筑分类",
+    footCompare: "对比赏析",
+    footQuiz: "知识答题"
+  },
+  ru: {
+    pageTitle: "Сравнение архитектуры Китая и России",
+    introTitle: "Обзор архитектурного сравнения",
+    introText: "Китайская архитектура основана на деревянных конструкциях, дворцовых ансамблях и представлении единства человека и природы. Русская архитектура известна каменными строениями, луковичными куполами и величественными дворцами.",
+    uploadTitle:"Сравнение по загруженным фото",
+    chinaUpload:"Загрузить фото китайского здания",
+    rusUpload:"Загрузить фото русского здания",
+    compareBtn:"Начать сравнительный анализ",
+    resultTitle:"Результат сравнения",
+    resultText:"Прочитаны два изображения зданий. Китайская архитектура в основном деревянная, симметричная, гармонирует с природой. Русская архитектура чаще каменная, с характерными луковичными куполами, пышная и массивная.",
+    block1Title: "Сравнение архитектурных стилей",
+    chinaStyle: "Стиль архитектуры Китая",
+    chinaStyleDesc: "Для него характерны симметрия, порядок и гармония с природой. Дворцы, храмы, сады и традиционные дома часто объединяются в комплексы.",
+    rusStyle: "Стиль архитектуры России",
+    rusStyleDesc: "Сочетает византийские, барочные и местные деревянные традиции. Здания массивные, яркие, с узнаваемыми луковичными куполами и декоративными фасадами.",
+    styleSummary: "Китайская архитектура развивается горизонтально и организует пространство ансамблями, русская — стремится вверх и производит сильное визуальное впечатление.",
+    block2Title: "Сравнение конструктивных систем",
+    chinaStruct: "Деревянная система Китая",
+    chinaStructDesc: "Основана на балках, колоннах, доу-гун и соединениях сунь-мао. Деревянные каркасы отличаются гибкостью и образуют устойчивые ансамбли.",
+    rusStruct: "Каменная система России",
+    rusStructDesc: "Основана на каменных стенах, арках, куполах и ордерах. Конструкции более массивные, стабильные и подходят для торжественных сооружений.",
+    structSummary: "Деревянная архитектура Китая гибка и адаптивна, каменная архитектура России подчёркивает постоянство, силу и ритуальность.",
+    block3Title: "Сравнение крыш и куполов",
+    chinaRoof: "Традиционные крыши Китая",
+    chinaRoofDesc: "Разнообразные формы: вudian, сешань, цзаньцзян. Крыши имеют далеко выступающие карнизы и сложные украшения на коньках.",
+    rusRoof: "Луковичные купола России",
+    rusRoofDesc: "Луковичные купола — один из главных символов русской архитектуры. Они удобны для снежного климата и усиливают устремлённость храмов вверх.",
+    roofSummary: "Китайские крыши отличаются кривыми линиями, карнизами и иерархией, русские купола — силуэтом, цветом и религиозным значением.",
+    block4Title: "Сравнение знаковых зданий",
+    arch1Name: "Запретный город",
+    arch1Desc: "Императорский дворцовый комплекс Мин и Цин. Центральная ось, дворцовые ансамбли и деревянные залы отражают древний китайский ритуальный порядок.",
+    arch2Name: "Собор Василия Блаженного",
+    arch2Desc: "Знаковое здание на Красной площади в Москве. Яркие луковичные купола сочетают черты православного храма и русской народной архитектуры.",
+    arch3Name: "Храм Неба",
+    arch3Desc: "Императорский комплекс для жертвоприношений Небу. Круглые алтари и Храм Неба выражают древнекитайское представление о вселенной.",
+    arch4Name: "Зимний дворец",
+    arch4Desc: "Барочный дворец в Санкт-Петербурге. Пышный фасад и грандиозные интерьеры отражают имперский масштаб русской архитектуры.",
+    footHome: "Главная",
+    footCat: "Категории",
+    footCompare: "Сравнение",
+    footQuiz: "Тесты"
+  }
+};
+
+let currentLang = "zh";
+const langToggleBtn = document.getElementById("langToggle");
+const chinaFileInput = document.getElementById("chinaFile");
+const rusFileInput = document.getElementById("rusFile");
+const chinaPreview = document.getElementById("chinaPreview");
+const rusPreview = document.getElementById("rusPreview");
+const compareBtn = document.getElementById("compareBtn");
+const resultBox = document.getElementById("resultBox");
+const resultText = document.getElementById("resultText");
+
+// 图片预览
+function bindFileInput(inputEl, imgEl){
+  inputEl.onchange = function(e){
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev){
+      imgEl.src = ev.target.result;
+      imgEl.style.display = "block";
+    }
+    reader.readAsDataURL(file);
+  }
+}
+bindFileInput(chinaFileInput,chinaPreview);
+bindFileInput(rusFileInput,rusPreview);
+
+// 对比按钮点击
+compareBtn.onclick = function(){
+  if(!chinaPreview.src || chinaPreview.style.display==="none"){
+    alert(currentLang==="zh"?"请上传中国建筑图片":"Загрузите фото китайского здания");
+    return;
+  }
+  if(!rusPreview.src || rusPreview.style.display==="none"){
+    alert(currentLang==="zh"?"请上传俄罗斯建筑图片":"Загрузите фото русского здания");
+    return;
+  }
+  resultBox.style.display = "block";
+  resultText.innerText = i18n[currentLang].resultText;
+}
+
+function renderLang() {
+  const dict = i18n[currentLang];
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    el.innerText = dict[key];
+  });
+  langToggleBtn.innerText = currentLang === "zh" ? "Русский" : "中文";
+}
+
+langToggleBtn.onclick = () => {
+  currentLang = currentLang === "zh" ? "ru" : "zh";
+  renderLang();
+};
+
+// 回到顶部
+const backTopBtn = document.getElementById("backTop");
+window.onscroll = function () {
+  backTopBtn.style.display = window.scrollY > 400 ? "flex" : "none";
+};
+backTopBtn.onclick = function () {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+renderLang();
+</script>
+</body>
+</html>

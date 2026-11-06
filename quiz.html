@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>知识答题-建筑专题</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Microsoft Yahei", sans-serif;
+}
+body {
+  background-color: #f4f6f8;
+  padding-top: 70px;
+  padding-bottom: 85px;
+}
+
+/* 顶部导航 */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(135deg, #2E4A62, #3c5f7c);
+  color: #fff;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 99;
+}
+.header-title {
+  font-size: 21px;
+  font-weight: bold;
+}
+.lang-btn {
+  padding: 6px 12px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+/* 答题主体 */
+.quiz-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 18px;
+}
+.quiz-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+.q-tag {
+  display: inline-block;
+  font-size: 13px;
+  color: #2E4A62;
+  background: #eef4f9;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+.q-index {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 8px;
+}
+.q-title {
+  font-size: 17px;
+  line-height: 1.7;
+  margin-bottom: 24px;
+  color: #222;
+}
+.option {
+  border: 1px solid #dde3ea;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.option:hover {
+  border-color: #2E4A62;
+}
+.option.active {
+  background: #eef4f9;
+  border-color: #2E4A62;
+}
+.btn-box {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+}
+.btn {
+  flex: 1;
+  padding: 13px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+}
+.btn-prev {
+  background: #b8c8d6;
+  color: #fff;
+}
+.btn-next {
+  background: #2E4A62;
+  color: #fff;
+}
+.result-wrap {
+  text-align: center;
+  padding: 40px 0;
+}
+.score-text {
+  font-size: 24px;
+  color: #2E4A62;
+  margin: 20px 0;
+}
+.result-desc {
+  color: #666;
+  margin-bottom: 30px;
+}
+.restart-btn, .back-btn {
+  width: 80%;
+  margin: 8px auto;
+  display: block;
+  padding: 13px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
+.restart-btn {
+  background: #2E4A62;
+  color: #fff;
+}
+.back-btn {
+  background: #6c88a0;
+  color: #fff;
+}
+
+/* 底部导航 */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  border-top: 1px solid #eee;
+}
+.footer-item {
+  flex: 1;
+  text-align: center;
+  padding: 14px 0;
+  font-size: 14px;
+  color: #666;
+}
+.footer-item.active {
+  color: #2E4A62;
+  font-weight: bold;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+</style>
+</head>
+<body>
+<header>
+  <div></div>
+  <h1 class="header-title" data-i18n="quizTitle">建筑专题答题</h1>
+  <button class="lang-btn" id="langToggle">Русский</button>
+</header>
+
+<div class="quiz-container">
+  <div class="quiz-card" id="quizBox"></div>
+</div>
+
+<footer>
+  <div class="footer-item"><a href=" " data-i18n="footHome">首页浏览</a ></div>
+  <div class="footer-item"><a href="category.html" data-i18n="footCat">建筑分类</a ></div>
+  <div class="footer-item"><a href="compare.html" data-i18n="footCompare">对比赏析</a ></div>
+  <div class="footer-item active"><a href="quiz.html" data-i18n="footQuiz">知识答题</a ></div>
+</footer>
+
+<script>
+// ========== 题库：建筑10题，中文+俄文双版本 ==========
+const questionBank = [
+  {
+    type:"建筑",
+    qZh:"中国传统古建筑的核心结构体系是？",
+    optZh:["木构榫卯体系","全砖石结构","钢结构","混合混凝土结构"],
+    qRu:"Какова основная конструктивная система традиционной древней китайской архитектуры?",
+    optRu:["Деревянная система шипу и пазов","Полная каменная конструкция","Стальная конструкция","Смешанная бетонная конструкция"],
+    ans:0
+  },
+  {
+    type:"建筑",
+    qZh:"俄罗斯传统教堂最标志性的屋顶样式是？",
+    optZh:["飞檐歇山顶","洋葱穹顶","平顶拱券","攒尖顶"],
+    qRu:"Какая форма крыши является наиболее характерной для традиционных русских церквей?",
+    optRu:["Крыша с загнутыми карнизами","Луковичный купол","Плоская арочная крыша","Шпилеобразная крыша"],
+    ans:1
+  },
+  {
+    type:"建筑",
+    qZh:"“墙倒屋不塌”是形容哪国建筑特点？",
+    optZh:["中国","俄罗斯","日本","韩国"],
+    qRu:"К какой стране относится особенность архитектуры «стена упадёт, а здание не рухнет»?",
+    optRu:["Китай","Россия","Япония","Корея"],
+    ans:0
+  },
+  {
+    type:"建筑",
+    qZh:"圣瓦西里大教堂位于俄罗斯哪个城市？",
+    optZh:["圣彼得堡","莫斯科","喀山","索契"],
+    qRu:"В каком городе России находится Собор Василия Блаженного?",
+    optRu:["Санкт-Петербург","Москва","Казань","Сочи"],
+    ans:1
+  },
+  {
+    type:"建筑",
+    qZh:"中国故宫建筑群最大特点是？",
+    optZh:["中轴线对称、院落层层递进","高尖穹顶、色彩艳丽","零散自由布局","全石材建造"],
+    qRu:"Главная особенность комплекса Запретного города в Китае?",
+    optRu:["Симметрия по центральной оси, последовательность дворов","Высокие острые купола, яркие цвета","Свободное разрозненное расположение","Полностью каменное строительство"],
+    ans:0
+  },
+  {
+    type:"建筑",
+    qZh:"俄罗斯传统建筑主要建材为？",
+    optZh:["木材、砖石","竹子","黄土","琉璃"],
+    qRu:"Какие основные строительные материалы использовались в традиционной русской архитектуре?",
+    optRu:["Дерево, камень и кирпич","Бамбук","Глина","Глазурованная плитка"],
+    ans:0
+  },
+  {
+    type:"建筑",
+    qZh:"中国天坛的主要功能是？",
+    optZh:["皇家祭天祈福","皇家居住","军事防御","商贸集会"],
+    qRu:"Каково основное назначение Храма Неба в Китае?",
+    optRu:["Императорское жертвоприношение небу и молитва за благополучие","Императорское проживание","Военная оборона","Торговые собрания"],
+    ans:0
+  },
+  {
+    type:"建筑",
+    qZh:"冬宫属于俄罗斯哪种建筑风格？",
+    optZh:["巴洛克","哥特","中式古典","极简现代"],
+    qRu:"К какому архитектурному стилю относится Зимний дворец России?",
+    optRu:["Барокко","Готика","Китайская классика","Современный минимализм"],
+    ans:0
+  },
+  {
+    type:"建筑",
+    qZh:"中国古建筑斗拱的主要作用不包括？",
+    optZh:["承重挑檐","装饰等级","抗震缓冲","加厚墙体"],
+    qRu:"Какая функция НЕ относится к функциям дугун в древнекитайской архитектуре?",
+    optRu:["Несение карниза","Декоративное обозначение ранга","Амортизация при землетрясении","Утолщение стены"],
+    ans:3
+  },
+  {
+    type:"建筑",
+    qZh:"俄罗斯建筑穹顶多为彩色，主要原因是？",
+    optZh:["宗教象征、美观御寒","纯粹装饰","法律规定","皇室随意"],
+    qRu:"Почему купола в русской архитектуре часто окрашены в разные цвета?",
+    optRu:["Религиозный символизм, эстетика и защита от холода","Только декор","Требование закона","Произвол царской семьи"],
+    ans:0
+  }
+];
+
+// 双语字典
+const i18n = {
+  zh:{
+    quizTitle:"建筑专题答题",
+    footHome:"首页浏览",
+    footCat:"建筑分类",
+    footCompare:"对比赏析",
+    footQuiz:"知识答题",
+    prev:"上一题",
+    next:"下一题",
+    backCat:"返回分类页",
+    redo:"重新答题",
+    finishTip:"您已完成全部10道建筑题目！",
+    scoreTxt:"本次得分：{s} 分（满分100）"
+  },
+  ru:{
+    quizTitle:"Тест по архитектуре",
+    footHome:"Главная",
+    footCat:"Категории",
+    footCompare:"Сравнение",
+    footQuiz:"Тест",
+    prev:"Предыдущий",
+    next:"Следующий",
+    backCat:"Вернуться",
+    redo:"Пройти заново",
+    finishTip:"Все вопросы по архитектуре пройдены!",
+    scoreTxt:"Баллы：{s} / 100"
+  }
+};
+
+let currentLang = "zh";
+let currentIdx = 0;
+let userAns = [];
+const totalNum = questionBank.length;
+
+// 渲染页面
+function render() {
+  const dict = i18n[currentLang];
+  const box = document.getElementById("quizBox");
+
+  // 答题结束
+  if(currentIdx >= totalNum){
+    let score = 0;
+    for(let i=0;i<totalNum;i++){
+      if(userAns[i] === questionBank[i].ans) score++;
+    }
+    let scorePercent = Math.round(score / totalNum * 100);
+    box.innerHTML = `
+    <div class="result-wrap">
+      <h3>${dict.finishTip}</h3>
+      <div class="score-text">${dict.scoreTxt.replace("{s}",scorePercent)}</div>
+      <div class="result-desc">共${totalNum}题，答对${score}题</div>
+      <button class="restart-btn" onclick="resetQuiz()">${dict.redo}</button>
+      <button class="back-btn" onclick="backToCategory()">${dict.backCat}</button>
+    </div>
+    `;
+    return;
+  }
+ // 当前题目，根据语言切换题干和选项
+  const q = questionBank[currentIdx];
+  const typeName = q.type;
+  const title = currentLang==="zh" ? q.qZh : q.qRu;
+  const opts = currentLang==="zh" ? q.optZh : q.optRu;
+
+  let html = `
+  <div class="q-tag">${typeName}</div>
+  <div class="q-index">${currentIdx+1} / ${totalNum}</div>
+  <div class="q-title">${title}</div>
+  `;
+
+  // 渲染选项
+  for(let i=0;i<4;i++){
+    let active = userAns[currentIdx]===i ? "active" : "";
+    html += `<div class="option ${active}" onclick="choose(${i})">${opts[i]}</div>`;
+  }
+
+  html += `
+  <div class="btn-box">
+    <button class="btn btn-prev" onclick="prevPage()" ${currentIdx===0?'disabled':''}>${dict.prev}</button>
+    <button class="btn btn-next" onclick="nextPage()">${dict.next}</button>
+  </div>
+  `;
+
+  box.innerHTML = html;
+}
+
+// 选择答案
+function choose(i){
+  userAns[currentIdx] = i;
+  render();
+}
+function prevPage(){
+  if(currentIdx>0) currentIdx--;
+  render();
+}
+function nextPage(){
+  currentIdx++;
+  render();
+}
+function resetQuiz(){
+  currentIdx = 0;
+  userAns = [];
+  render();
+}
+// 返回分类页
+function backToCategory(){
+  window.location.href = "category.html";
+}
+
+// 双语切换
+document.getElementById("langToggle").onclick = function(){
+  currentLang = currentLang==="zh"?"ru":"zh";
+  this.innerText = currentLang==="zh"?"Русский":"中文";
+  render();
+};
+
+render();
+</script>
+</body>
+</html>
